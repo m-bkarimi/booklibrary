@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
 
+
 class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
@@ -36,3 +37,50 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
 
+class Publisher(models.Model):
+    """Model representing a publisher."""
+
+    class Meta(object):
+        db_table = 'publisher'
+
+    name = models.CharField(max_length=255)
+    phone = models.BigIntegerField()
+    address = models.CharField(max_length=100)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+
+
+class Author(models.Model):
+    """Model representing an author."""
+
+    class Meta(object):
+        db_table = 'author'
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=100)
+    nickname = models.CharField(max_length=100)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f"{self.first_name} {self.last_name}"
+
+
+class Book(models.Model):
+    """Model representing a book."""
+
+    class Meta(object):
+        db_table = 'book'
+
+    title = models.CharField(max_length=255)
+    # Foreign Key used because book can only have one publisher, but publisher can have multiple books
+    publisher = models.ForeignKey(Publisher, null=True, on_delete=models.PROTECT)
+    # ManyToManyField used because a author can have many books and a Book can have many author.
+    authors = models.ManyToManyField(Author)
+    page_count = models.BigIntegerField(null=True, blank=True)
+    publish_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.title

@@ -24,5 +24,21 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
+class CommentInline(admin.TabularInline):
+    model = models.Book
+
+
+class BookAdmin(admin.ModelAdmin):
+    list_filter = ('title', 'authors__first_name',)
+    search_fields = ['authors__first_name', 'publisher__name']
+
+
+class PublisherAdmin(admin.ModelAdmin):
+    inlines = [CommentInline, ]
+
 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Publisher, PublisherAdmin)
+admin.site.register(models.Author)
+admin.site.register(models.Book, BookAdmin)
+

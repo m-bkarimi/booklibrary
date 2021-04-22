@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     # third party app
     'rest_framework',
     'rest_framework.authtoken',
+    'admin_auto_filters',
     # local app
     'core',
     'user',
+    'book',
 ]
 
 MIDDLEWARE = [
