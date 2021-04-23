@@ -43,6 +43,7 @@ class Publisher(models.Model):
     class Meta(object):
         db_table = 'publisher'
 
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
     phone = models.BigIntegerField()
     address = models.CharField(max_length=100)
@@ -58,6 +59,7 @@ class Author(models.Model):
     class Meta(object):
         db_table = 'author'
 
+    id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=100)
     nickname = models.CharField(max_length=100)
@@ -73,6 +75,7 @@ class Book(models.Model):
     class Meta(object):
         db_table = 'book'
 
+    id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=255)
     # Foreign Key used because book can only have one publisher, but publisher can have multiple books
     publisher = models.ForeignKey(Publisher, null=True, on_delete=models.PROTECT)

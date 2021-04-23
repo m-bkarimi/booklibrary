@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
 from core import models
+from admin_auto_filters.filters import AutocompleteFilter
 
 
 class UserAdmin(BaseUserAdmin):
@@ -24,21 +25,31 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
-class CommentInline(admin.TabularInline):
-    model = models.Book
+class AuthorFilter(AutocompleteFilter):
+    title = 'Author'  # display title
+    field_name = 'authors'  # name of the foreign key field
+
+
+class PublisherFilter(AutocompleteFilter):
+    title = 'Publisher'  # display title
+    field_name = 'publisher'  # name of the foreign key field
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_filter = ('title', 'authors__first_name',)
-    search_fields = ['authors__first_name', 'publisher__name']
+    list_filter = (PublisherFilter, AuthorFilter,)
+    search_fields = ['title', ]
 
 
 class PublisherAdmin(admin.ModelAdmin):
-    inlines = [CommentInline, ]
+    search_fields = ['name', ]
+
+
+class AuthorAdmin(admin.ModelAdmin):
+    search_fields = ['first_name', 'last_name', ]
 
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Publisher, PublisherAdmin)
-admin.site.register(models.Author)
+admin.site.register(models.Author, AuthorAdmin)
 admin.site.register(models.Book, BookAdmin)
 
