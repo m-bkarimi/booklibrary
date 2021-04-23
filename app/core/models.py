@@ -78,9 +78,9 @@ class Book(models.Model):
     id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=255)
     # Foreign Key used because book can only have one publisher, but publisher can have multiple books
-    publisher = models.ForeignKey(Publisher, null=True, on_delete=models.PROTECT)
+    publisher = models.ForeignKey(Publisher, null=True, on_delete=models.PROTECT, related_name='publishers')
     # ManyToManyField used because a author can have many books and a Book can have many author.
-    authors = models.ManyToManyField(Author)
+    authors = models.ManyToManyField(Author, related_name='authors')
     page_count = models.BigIntegerField(null=True, blank=True)
     publish_date = models.DateField(null=True, blank=True)
 
