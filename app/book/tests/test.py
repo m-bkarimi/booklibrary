@@ -8,10 +8,20 @@ class BookTests(TestCase):
         self.author = Author.objects.create(
         first_name='Harry Potter',
         last_name='JK Rowling',
-        nick_name='25.00',
+        nickname='JR',
+        )
+        self.publisher = Publisher.objects.create(
+        name='Harry Potter',
+        phone=5454,
+        address='JR',
         )
 
-    def test_book_listing(self):
-        self.assertEqual(f'{self.book.title}', 'Harry Potter')
-        self.assertEqual(f'{self.book.author}', 'JK Rowling')
-        self.assertEqual(f'{self.book.price}', '25.00')
+    def test_author_listing(self):
+        self.assertEqual(f'{self.author.first_name}', 'Harry Potter')
+        self.assertEqual(f'{self.author.last_name}', 'JK Rowling')
+        self.assertEqual(f'{self.author.nickname}', 'JR')
+
+    def test_publisher_listing(self):
+        self.assertEqual(f'{self.publisher.name}', 'Harry Potter')
+        self.assertEqual(self.publisher.phone, 5454)
+        self.assertEqual(f'{self.publisher.address}', 'JR')

@@ -13,6 +13,7 @@ services:
              python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
     environment:
+      - SECRET_KEY= $ll1#vw-p*#u74j)vq6g=wevlgno(uy!ll)apv)zplfgs@e%@w
       - DB_HOST=db
       - DB_NAME=app
       - DB_USER=postgres

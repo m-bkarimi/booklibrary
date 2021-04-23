@@ -10,20 +10,18 @@ class ModelTests(TestCase):
     def setUpTestData(cls):
 
         cls.author = models.Author.objects.create(
-            first_name='sepric',
+            first_name='sepris',
             last_name='car'
         )
         cls.publisher = models.Publisher.objects.create(
-            name='sepric',
+            name='sepris',
             phone=5664664,
             address='tehran',
         )
 
-
-
     def test_create_user_with_email_successful(self):
         """Test creating a new user with an email is successful"""
-        email = 'test@sepric.com'
+        email = 'test@sepris.com'
         password = 'Testpass123'
         user = get_user_model().objects.create_user(
             email=email,
@@ -35,7 +33,7 @@ class ModelTests(TestCase):
 
     def test_new_user_email_normalized(self):
         """Test the email for a new user is normalized"""
-        email = 'test@SEPRIC.COM'
+        email = 'test@SEPRIS.COM'
         user = get_user_model().objects.create_user(email, 'test123')
 
         self.assertEqual(user.email, email.lower())
@@ -48,7 +46,7 @@ class ModelTests(TestCase):
     def test_create_new_superuser(self):
         """Test creating a new superuser"""
         user = get_user_model().objects.create_superuser(
-            'test@sepric.com',
+            'test@sepris.com',
             'test123'
         )
 
@@ -67,7 +65,7 @@ class ModelTests(TestCase):
     def test_book_str(self):
         """Test the publisher string representation"""
         book = models.Book.objects.create(
-            title='sepric rent',
+            title='sepris rent',
             publisher=self.publisher,
         )
 
